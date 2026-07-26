@@ -1,6 +1,6 @@
 // LocalizedDemoApp.java
-// D. Singletary
-// 11/3/24
+// G. Fultz
+// 7/26/2026
 // demonstrates try-with-resources, localization, and command pattern.
 
 package edu.fscj.cop3330c.ldemoapp;
@@ -48,20 +48,33 @@ class LoadPropertiesCommand implements Command {
         FileInputStream input = null;
 
         // replace this with try-with-resources
+//        try {
+//            input = new FileInputStream("config.properties");
+//            Properties prop = new Properties();
+//            prop.load(input);
+//            String appName = prop.getProperty("app.name");
+//            System.out.println(messages.getString("appName") + ": " + appName);
+//        } catch (IOException e) {
+//            System.err.println(messages.getString("error") + ": " + e.getMessage());
+//        } finally {
+//            if (input != null) {
+//                try {
+//                    input.close();
+//                } catch (IOException e) {
+//                    System.err.println(messages.getString("error") + " while closing: " + e.getMessage());
+//                }
+//            }
+
         try {
             input = new FileInputStream("config.properties");
-            Properties prop = new Properties();
-            prop.load(input);
-            String appName = prop.getProperty("app.name");
-            System.out.println(messages.getString("appName") + ": " + appName);
         } catch (IOException e) {
-            System.err.println(messages.getString("error") + ": " + e.getMessage());
+            e.printStackTrace();
         } finally {
-            if (input != null) {
-                try {
+            if (input != null){
+                try{
                     input.close();
                 } catch (IOException e) {
-                    System.err.println(messages.getString("error") + " while closing: " + e.getMessage());
+                    e.printStackTrace();
                 }
             }
         }
@@ -72,7 +85,7 @@ class LoadPropertiesCommand implements Command {
 public class LocalizedDemoApp {
     public static void main(String[] args) {
         // Set locale to system default or specify as needed
-        Locale locale = Locale.getDefault();
+        Locale locale = new Locale("de","DE");
         //Locale locale = new Locale("en", "US");
         //Locale locale = new Locale("fr", "FR");
         // select de/DE here after adding the properties file
